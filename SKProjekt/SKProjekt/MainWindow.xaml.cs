@@ -95,7 +95,7 @@ namespace SKProjekt
             while (true)
             {
                 await Refresh();
-                await Task.Delay(100);
+                await Task.Delay(1000);
             }
         }
 
