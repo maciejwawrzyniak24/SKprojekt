@@ -13,7 +13,13 @@ namespace SKProjekt
     /// </summary>
     public partial class App : Application
     {
-
+        private void Application_Startup(object sender, StartupEventArgs e)
+        {
+            if (e.Args.Length == 1)
+                ServerConnection.GetConnection(e.Args[0]);
+            else
+                ServerConnection.GetConnection();
+        }
     }
 
 }

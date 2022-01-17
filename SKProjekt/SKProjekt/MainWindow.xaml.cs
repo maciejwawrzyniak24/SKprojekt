@@ -117,10 +117,15 @@ namespace SKProjekt
 
         private void SendMessage(object sender, RoutedEventArgs e)
         {
-            ServerConnection.SendMessage(Wiadomosc.Text, CurrentRoom);
-            string temp = ServerConnection.GetRoomMessages(CurrentRoom);
-            RoomText = temp;
-            Wiadomosc.Text = "";
+            if (CurrentRoom != "")
+            {
+                ServerConnection.SendMessage(Wiadomosc.Text, CurrentRoom);
+                string temp = ServerConnection.GetRoomMessages(CurrentRoom);
+                RoomText = temp;
+                Wiadomosc.Text = "";
+            }
+            else MessageBox.Show("Najpierw wejdz do pokoju");
+
         }
 
         private void NowyPokoj(object sender, RoutedEventArgs e)

@@ -11,10 +11,19 @@ namespace SKProjekt
 {
     class ServerConnection
     {
-        public static int port { get; set; } = 1234;
-        public static TcpClient client { get; set; } = new TcpClient("192.168.56.103", port);
-        public static NetworkStream stream { get; set; } = client.GetStream();
+        public static int Port { get; set; } = 1234;
+
+        public static string IP { get; set; }
+        public static TcpClient client { get; set; }
+        public static NetworkStream stream { get; set; }
         public static string Username { get; set; } = "Default";
+
+        public static void GetConnection(string ip = "192.168.56.103")
+        {
+            IP = ip;
+            client = new TcpClient(IP, Port);
+            stream = client.GetStream();
+        }
 
         public static void SendToServer(string message, int size = 200)
         {
