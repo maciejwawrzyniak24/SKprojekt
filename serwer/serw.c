@@ -334,7 +334,7 @@ int main(int argc, char** argv){
 	listen(fd, 10);
 
     //Tworzenie pokoju
-    char* nzw = "mainRoom.txt";
+    char* nzw = "MainRoom";
     createRoom(nzw);
     insertFirst(nzw, 1);
 
