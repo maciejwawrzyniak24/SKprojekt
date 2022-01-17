@@ -11,7 +11,7 @@
 
 int main(int argc, char* argv[])
 {
-    char hostname[] = "192.168.8.116";
+    char hostname[] = "192.168.8.121";
     WORD WRequiredVersion;
     WSADATA WData;
     SOCKET SSocket;
@@ -69,7 +69,7 @@ int main(int argc, char* argv[])
         printf("Podaj komende: \n");
         scanf_s("%s", szBuf, (unsigned)_countof(szBuf));
         if (!(strcmp(szBuf, "newMsg"))) {
-            send(SSocket, szBuf, 100, 0);
+            send(SSocket, szBuf, 200, 0);
             nBytes = recv(SSocket, cbBuf, sizeof(cbBuf), 0);
 
             cbBuf[nBytes] = '\x0';
@@ -77,9 +77,9 @@ int main(int argc, char* argv[])
 
             printf("Podaj nazwe pokoju: \n");
             scanf_s("%s", nazwapokoju, (unsigned)_countof(nazwapokoju));
-            send(SSocket, nazwapokoju, 20, 0);
+            send(SSocket, nazwapokoju, 200, 0);
 
-            send(SSocket, nazwaUzytkownika, 20, 0);
+            send(SSocket, nazwaUzytkownika, 200, 0);
 
             printf("Podaj wiadomosc : \n");
 
@@ -89,7 +89,7 @@ int main(int argc, char* argv[])
             send(SSocket, message, 200, 0);
         }
         else if (!(strcmp(szBuf, "newRoom"))) {
-            send(SSocket, szBuf, 100, 0);
+            send(SSocket, szBuf, 200, 0);
             nBytes = recv(SSocket, cbBuf, sizeof(cbBuf), 0);
 
             cbBuf[nBytes] = '\x0';
@@ -98,11 +98,27 @@ int main(int argc, char* argv[])
             //strcpy_s(nazwapokoju, 20, "pokoj333.txt");
             printf("Podaj nazwe pokoju: \n");
             scanf_s("%s", nazwapokoju, (unsigned)_countof(nazwapokoju));
-            send(SSocket, nazwapokoju, 20, 0);
+            send(SSocket, nazwapokoju, 200, 0);
+        }
+        else if (!(strcmp(szBuf, "onRoom")))
+        {
+            send(SSocket, szBuf, 200, 0);
+            nBytes = recv(SSocket, cbBuf, sizeof(cbBuf), 0);
+
+            cbBuf[nBytes] = '\x0';
+            printf("Data from SERVER [%s]:\t%s", hostname, cbBuf);
+
+            printf("Podaj nazwe pokoju: \n");
+            scanf_s("%s", nazwapokoju, (unsigned)_countof(nazwapokoju));
+            send(SSocket, nazwapokoju, 200, 0);
+
+            nBytes = recv(SSocket, cbBuf, sizeof(cbBuf), 0);
+            cbBuf[nBytes] = '\x0';
+            printf("Data from SERVER [%s]:\t%s", hostname, cbBuf);
         }
         else if (!(strcmp(szBuf, "clRoom")))
         {
-            send(SSocket, szBuf, 100, 0);
+            send(SSocket, szBuf, 200, 0);
             nBytes = recv(SSocket, cbBuf, sizeof(cbBuf), 0);
 
             cbBuf[nBytes] = '\x0';
@@ -110,11 +126,12 @@ int main(int argc, char* argv[])
 
             printf("Podaj nazwe pokoju: \n");
             scanf_s("%s", nazwapokoju, (unsigned)_countof(nazwapokoju));
-            send(SSocket, nazwapokoju, 20, 0);
+            send(SSocket, nazwapokoju, 200, 0);
+
         }
         else if (!(strcmp(szBuf, "refresh")))
         {
-            send(SSocket, szBuf, 100, 0);
+            send(SSocket, szBuf, 200, 0);
             nBytes = recv(SSocket, cbBuf, sizeof(cbBuf), 0);
 
             cbBuf[nBytes] = '\x0';
@@ -122,11 +139,11 @@ int main(int argc, char* argv[])
 
             printf("Podaj nazwe pokoju: \n");
             scanf_s("%s", nazwapokoju, (unsigned)_countof(nazwapokoju));
-            send(SSocket, nazwapokoju, 20, 0);
+            send(SSocket, nazwapokoju, 200, 0);
 
             printf("Podaj miejsce w ktorym jestes: \n");
             scanf_s("%s", nazwapokoju, (unsigned)_countof(nazwapokoju));
-            send(SSocket, nazwapokoju, 20, 0);
+            send(SSocket, nazwapokoju, 200, 0);
 
             while (1) {
                 nBytes = recv(SSocket, cbBuf, 200, 0);
@@ -145,14 +162,14 @@ int main(int argc, char* argv[])
         }
         else if (!(strcmp(szBuf, "listPok")))
         {
-            send(SSocket, szBuf, 100, 0);
+            send(SSocket, szBuf, 200, 0);
             nBytes = recv(SSocket, cbBuf, sizeof(cbBuf), 0);
 
             cbBuf[nBytes] = '\x0';
             printf("Data from SERVER [%s]:\t%s", hostname, cbBuf);
 
             while (1) {
-                nBytes = recv(SSocket, cbBuf, 20, 0);
+                nBytes = recv(SSocket, cbBuf, 200, 0);
                 cbBuf[nBytes] = '\x0';
                 if (!(strcmp(cbBuf, ""))) {
                     break;
@@ -165,14 +182,14 @@ int main(int argc, char* argv[])
         }
         else if (!(strcmp(szBuf, "exit")))
         {
-            send(SSocket, szBuf, 100, 0);
+            send(SSocket, szBuf, 200, 0);
             printf("Koniec programu");
             break;
             
         }
         else {
             printf("Error - klient: podana komenda: %s", szBuf);
-            send(SSocket, "exit", 100, 0);
+            send(SSocket, "exit", 200, 0);
             break;
         }
         memset(szBuf, '\0', sizeof(char) * 8);
